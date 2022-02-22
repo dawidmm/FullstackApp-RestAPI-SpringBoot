@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <title>Instalook</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+<!-- NAV BAR -->
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/}">Rejestracja i logowanie</a>
+        </div>
+    </div>
+</nav>
+
+<!-- REG FORM -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1>Strona logowania</h1>
+
+            <!-- success -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">Konto utworzone prawidłowo! Możesz się teraz zalogować</div>
+            </div>
+
+
+            <form th:action="@{/login}" method="post">
+
+                <!-- error -->
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Niepoprawna nazwa użytkownika lub hasło</div>
+                </div>
+
+
+
+                <!-- logout -->
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">Zostałeś wylogowany</div>
+                </div>
+
+                <!-- login form  -->
+                <div class="form-group">
+                    <label for="username">Login</label>:
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Wpisz login"
+                           autofocus="autofocus" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Hasło</label>:
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Wpisz hasło"
+                           autofocus="autofocus" required>
+                </div>
+                <!-- button -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" name="Login-submit" id="Login-submit"
+                                   class="form-control btn btn-primary" value="Zaloguj">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group">
+                <span>Jesteś nowy? <a href="/" th:href="@{/registration}">Zarejestruj się tutaj!</a> </span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
