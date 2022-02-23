@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,6 +24,7 @@ public class UserModel {
     private Long id;
 
     @NotNull
+    @Size(min = 4, max = 30, message = "Login może zawierać 4-30 znaków.")
     @Column(name = "login")
     private String login;
 

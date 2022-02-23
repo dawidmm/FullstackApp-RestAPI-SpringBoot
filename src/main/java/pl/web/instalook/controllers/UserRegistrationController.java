@@ -3,12 +3,15 @@ package pl.web.instalook.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.web.instalook.dto.UserRegistrationDto;
 import pl.web.instalook.service.UserService;
+
+import javax.validation.ConstraintViolationException;
 
 @Controller
 @RequestMapping("/registration")
@@ -29,17 +32,19 @@ public class UserRegistrationController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("instalook_users") UserRegistrationDto registrationDto) {
+
         if (!registrationDto.getLogin().contains(" ") && !registrationDto.getPassword().contains(" ")) {
 
             try {
                 userService.save(registrationDto);
                 return "redirect:/login?success";
-            } catch (Exception e) {
+            } catch (ConstraintViolationException e) {
+                return "redirect:/registration?error";
+            } catch (Exception e){
                 return "redirect:/registration?bussy";
             }
-        }
-        else{
+
+        } else
             return "redirect:/registration?error";
-        }
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -34,21 +34,32 @@
                 <div class="alert alert-success">Konto utworzone prawidłowo!</div>
             </div>
 
-            <!-- fail -->
+            <!-- fail error -->
 
             <div th:if="${param.error}">
                 <div class="alert alert-danger">Niepoprawna nazwa użytkownika lub hasło</div>
             </div>
+            <!-- fail passw -->
 
-            <!-- login bussy -->
+            <div th:if="${param.passw}">
+                <div class="alert alert-danger">Hasła nie są identyczne</div>
+            </div>
+
+            <!-- fail bussy -->
 
             <div th:if="${param.bussy}">
-                <div class="alert alert-danger">Login jest już zajęty, użyj innego</div>
+                <div class="alert alert-danger">Login zajęty, użyj innego</div>
+            </div>
+
+            <div id="info">
+                <div class="alert alert-info" >
+                    <p id="text">Login powinien zawierać od 4 do 30 znaków. Pola nie mogą zawierać znaku pustego.</p>
+                </div>
             </div>
 
             <h1>Rejestracja</h1>
 
-            <form id="form" th:action="@{/registration}" method="post" th:object="${instalook_users}" >
+            <form id="form" name="form" th:action="@{/registration}" method="post" th:object="${instalook_users}">
 
                 <!-- Login field -->
 
@@ -56,8 +67,8 @@
                     <label for="login" class="control-label">
                         Login
                     </label>
-                    <input id="login" name="loginField" class="form-control" th:field="*{login}" required
-                           autofocus="autofocus">
+                    <input id="login" name="loginField" class="form-control" th:field="*{login}" oninput="showHintLogin()"
+                           autofocus="autofocus" placeholder="Wpisz login" required>
                 </div>
 
                 <!-- Password field -->
@@ -66,12 +77,25 @@
                     <label for="password" class="control-label">
                         Hasło
                     </label>
-                    <input id="password" class="form-control" type="password" th:field="*{password}" required
-                           autofocus="autofocus">
+                    <input id="password" class="form-control" type="password" th:field="*{password}" oninput="showHintPassword()"
+                           autofocus="autofocus" placeholder="Wpisz hasło" required>
                 </div>
 
+                <!-- second password field -->
+
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">Zarejestruj</button>
+                    <label for="secondPassword" class="control-label">
+                        Powtórz hasło
+                    </label>
+                    <input id="secondPassword" class="form-control" type="password" oninput="showHintPassword()"
+                           autofocus="autofocus" placeholder="Powtórz hasło" required>
+                </div>
+
+                <!-- button -->
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" onclick="checkPasswordIdentical()">Zarejestruj</button>
+
                     <span>Masz już konto?</span>
                     <a href="/" th:href="@{/login}"> Zaloguj się tutaj</a>
                 </div>
@@ -80,5 +104,64 @@
         </div>
     </div>
 </div>
+
+<script th:inline="javascript">
+
+    var info = document.getElementById( "info" );
+
+    info.style.visibility = 'hidden';
+
+
+    function validate() {
+
+        var password = document.getElementById( "password" ).value;
+        var login = document.getElementById ( "login" ).value;
+
+        if (password.length > 5 && login.length > 3){
+
+            var f = document.forms["form"];
+
+            f.method = "POST";
+            f.submit();
+        }
+        else{
+            window.location.replace( "/registration?error" );
+        }
+    }
+
+
+    function showHintLogin() {
+
+        info.style.visibility = 'visible';
+
+        document.getElementById( "text" ).innerHTML = "Login powinien zawierać od 4 do 30 znaków. Login nie może zawierać znaku pustego.";
+
+    }
+
+
+    function showHintPassword() {
+
+        info.style.visibility = 'visible';
+
+        document.getElementById( "text" ).innerHTML = "Hasło powinno zawierać od 6 do 30 znaków. Hasło nie może zawierać znaku pustego.";
+
+    }
+
+
+    function checkPasswordIdentical(){
+
+        var firstPassword = document.getElementById( "password" ).value;
+        var secondPassword = document.getElementById( "secondPassword" ).value;
+
+        if ( firstPassword == secondPassword ){
+            validate();
+        }
+        else{
+            window.location.replace( "/registration?passw" );
+        }
+    }
+
+</script>
+
 </body>
 </html>

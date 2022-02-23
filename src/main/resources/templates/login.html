@@ -45,7 +45,7 @@
             </div>
 
 
-            <form th:action="@{/login}" method="post">
+            <form id="form" name="form" th:action="@{/login}" method="post">
 
                 <!-- login field  -->
 
@@ -66,8 +66,8 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
-                            <input type="submit" name="Login-submit" id="Login-submit"
-                                   class="form-control btn btn-primary" value="Zaloguj">
+                            <input type="button" name="Login-submit" id="Login-submit"
+                                   class="form-control btn btn-primary" value="Zaloguj" onclick="checkWhiteSymbol()">
                         </div>
                     </div>
                 </div>
@@ -78,5 +78,30 @@
         </div>
     </div>
 </div>
+
+<script th:inline="javascript">
+
+    function checkWhiteSymbol() {
+
+        var login = document.getElementById( "username" ).value;
+        var password = document.getElementById( "password" ).value;
+
+        if ( password.includes(" ") ||
+             login.includes(" ") ||
+             password == "" ||
+             login == "") {
+
+            window.location.replace( "/login?error" );
+        }
+        else {
+
+            var f = document.forms["form"];
+
+            f.method = "POST";
+            f.submit();
+        }
+    }
+
+</script>
 </body>
 </html>
