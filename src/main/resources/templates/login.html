@@ -34,27 +34,29 @@
                 <div class="alert alert-info">Konto utworzone prawidłowo! Możesz się teraz zalogować</div>
             </div>
 
+            <!-- error -->
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Niepoprawna nazwa użytkownika lub hasło</div>
+            </div>
+
+            <!-- logout -->
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">Zostałeś wylogowany</div>
+            </div>
+
 
             <form th:action="@{/login}" method="post">
 
-                <!-- error -->
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger">Niepoprawna nazwa użytkownika lub hasło</div>
-                </div>
+                <!-- login field  -->
 
-
-
-                <!-- logout -->
-                <div th:if="${param.logout}">
-                    <div class="alert alert-info">Zostałeś wylogowany</div>
-                </div>
-
-                <!-- login form  -->
                 <div class="form-group">
                     <label for="username">Login</label>:
                     <input type="text" class="form-control" id="username" name="username" placeholder="Wpisz login"
                            autofocus="autofocus" required>
                 </div>
+
+                <!-- password field  -->
+
                 <div class="form-group">
                     <label for="password">Hasło</label>:
                     <input type="password" class="form-control" id="password" name="password" placeholder="Wpisz hasło"

@@ -31,7 +31,7 @@
             <!-- success -->
 
             <div th:if="${param.success}">
-                <div class="alert alert-info">Konto utworzone prawidłowo!</div>
+                <div class="alert alert-success">Konto utworzone prawidłowo!</div>
             </div>
 
             <!-- fail -->
@@ -40,16 +40,27 @@
                 <div class="alert alert-danger">Niepoprawna nazwa użytkownika lub hasło</div>
             </div>
 
+            <!-- login bussy -->
+
+            <div th:if="${param.bussy}">
+                <div class="alert alert-danger">Login jest już zajęty, użyj innego</div>
+            </div>
+
             <h1>Rejestracja</h1>
 
-            <form th:action="@{/registration}" method="post" th:object="${instalook_users}">
+            <form id="form" th:action="@{/registration}" method="post" th:object="${instalook_users}" >
+
+                <!-- Login field -->
 
                 <div class="form-group">
                     <label for="login" class="control-label">
                         Login
                     </label>
-                    <input id="login" class="form-control" th:field="*{login}" required autofocus="autofocus">
+                    <input id="login" name="loginField" class="form-control" th:field="*{login}" required
+                           autofocus="autofocus">
                 </div>
+
+                <!-- Password field -->
 
                 <div class="form-group">
                     <label for="password" class="control-label">
