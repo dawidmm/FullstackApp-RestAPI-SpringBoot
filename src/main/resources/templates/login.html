@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <title>Instalook</title>
+    <script type="text/javascript" th:src="@{/js/login.js}"></script>
 </head>
 <body>
 <br>
@@ -78,30 +78,5 @@
         </div>
     </div>
 </div>
-
-<script th:inline="javascript">
-
-    function checkWhiteSymbol() {
-
-        var login = document.getElementById( "username" ).value;
-        var password = document.getElementById( "password" ).value;
-
-        if ( password.includes(" ") ||
-             login.includes(" ") ||
-             password == "" ||
-             login == "") {
-
-            window.location.replace( "/login?error" );
-        }
-        else {
-
-            var f = document.forms["form"];
-
-            f.method = "POST";
-            f.submit();
-        }
-    }
-
-</script>
 </body>
 </html>
