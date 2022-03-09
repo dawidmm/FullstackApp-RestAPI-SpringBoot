@@ -24,7 +24,8 @@ public class UserServiceImplement implements UserService {
 
     @Override
     public void save(UserRegistrationDto urDTO) {
-        UserModel user = new UserModel(urDTO.getLogin(), passwordEncoder.passwordEncod().encode(urDTO.getPassword()), List.of(new RoleModel("NEW_USER")));
+        UserModel user = new UserModel(urDTO.getLogin(), passwordEncoder.passwordEncod().encode(urDTO.getPassword()), urDTO.getName());
+        //List.of(new RoleModel("NEW_USER"))
         userModelRepository.save(user);
     }
 
