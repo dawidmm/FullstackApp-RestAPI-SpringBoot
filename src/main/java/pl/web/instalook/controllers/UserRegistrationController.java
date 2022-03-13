@@ -2,16 +2,14 @@
 package pl.web.instalook.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.web.instalook.dto.UserRegistrationDto;
-import pl.web.instalook.model.RoleModel;
-import pl.web.instalook.repository.RoleModelRepository;
-import pl.web.instalook.repository.UserModelRepository;
+import pl.web.instalook.model.Role;
+import pl.web.instalook.repository.RoleRepository;
 import pl.web.instalook.service.UserService;
 
 import javax.validation.ConstraintViolationException;
@@ -23,7 +21,7 @@ import java.util.List;
 public class UserRegistrationController {
 
     private UserService userService;
-    private RoleModelRepository repository;
+    private RoleRepository repository;
 
     @ModelAttribute("instalook_users")
     public UserRegistrationDto userRegistrationDto() {
@@ -36,16 +34,16 @@ public class UserRegistrationController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("instalook_users") UserRegistrationDto registrationDto) {
+    public String registerUserAccount(UserRegistrationDto registrationDto) {
 
-        RoleModel roleModel;
+        Role role;
 
         if (!registrationDto.getLogin().contains(" ") && !registrationDto.getPassword().contains(" ")) {
 
             try {
 
-                roleModel = repository.findByName("NEW USER");
-                registrationDto.setName(List.of(roleModel));
+                role = repository.findByName("NEW USER");
+                registrationDto.setName(List.of(role));
                 userService.save(registrationDto);
 
                 return "redirect:/login?success";

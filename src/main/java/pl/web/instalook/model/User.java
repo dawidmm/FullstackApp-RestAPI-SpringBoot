@@ -3,26 +3,22 @@ package pl.web.instalook.model;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import javax.validation.groups.Default;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "instalook_users", uniqueConstraints = @UniqueConstraint(columnNames = "login"))
-public class UserModel {
-    public UserModel(){}
+public class User {
 
+    public User(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @NotNull
@@ -41,9 +37,9 @@ public class UserModel {
                     name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(
             name = "role_id", referencedColumnName = "id"))
-    private Collection<RoleModel> roles;
+    private Collection<Role> roles;
 
-    public UserModel(String login, String password, Collection<RoleModel> roles) {
+    public User(String login, String password, Collection<Role> roles) {
         this.login = login;
         this.password = password;
         this.roles = roles;

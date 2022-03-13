@@ -1,11 +1,9 @@
 package pl.web.instalook.model;
 
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -14,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "instalook_role")
-public class RoleModel {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +20,7 @@ public class RoleModel {
     @NotNull
     private String name;
 
-    public RoleModel(String name) {
+    public Role(String name) {
         this.name = name;
     }
 }

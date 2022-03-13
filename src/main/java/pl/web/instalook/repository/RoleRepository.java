@@ -2,10 +2,10 @@ package pl.web.instalook.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.web.instalook.model.RoleModel;
+import pl.web.instalook.model.Role;
 
 @Repository
-public interface RoleModelRepository extends JpaRepository<RoleModel, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    RoleModel findByName(String name);
+    Role findByName(String name);
 }
