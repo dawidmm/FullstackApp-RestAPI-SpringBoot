@@ -1,7 +1,6 @@
 package pl.web.instalook.service;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.web.instalook.dto.ImageDto;
 import pl.web.instalook.model.Image;
@@ -15,7 +14,6 @@ public class ImageServiceImplement implements ImageService{
 
     @Override
     public void save(ImageDto imageDto) {
-        //Image image = new Image(mageDto.getIdUser(), imageDto.getDate(), imageDto.getImageName(), imageDto.getTitle(), imageDto.getDesc());
         Image image = new Image(imageDto.getDate(), imageDto.getImageName(), imageDto.getTitle(), imageDto.getDesc(), imageDto.getUser());
         repository.save(image);
     }
